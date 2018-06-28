@@ -1,0 +1,33 @@
+::ng-deep .datatable-row-even {
+  background-color: $white;
+}
+::ng-deep .datatable-row-odd {
+  background-color: $lightest-gray;
+}
+::ng-deep .datatable-body .datatable-row-left {
+  background-color: inherit;
+}
+
+::ng-deep .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  padding: .1em 1.2em !important;
+}
+
+::ng-deep .mat-card-title {
+  margin: 0 !important;
+}
+
+::ng-deep .mat-card {
+  padding: 0px 10px !important;
+}
+
+.ui-state-highlight {
+  background-color: white!important;
+}
+
+::ng-deep .ui-table .ui-table-thead>tr>th, ::ng-deep .ui-table .ui-table-tbody>tr>td, ::ng-deep .ui-table .ui-table-tfoot>tr>td {
+    padding: .358rem!important;
+}
+
+::ng-deep body .ui-widget-overlay {
+  opacity: 0.2!important;
+}

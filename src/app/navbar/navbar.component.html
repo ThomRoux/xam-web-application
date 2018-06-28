@@ -1,0 +1,144 @@
+<nav class="site-navbar navbar navbar-default navbar-fixed-top navbar-mega navbar-inverse mat-elevation-z3 bg-indigo-500" role="navigation"
+      [style.zIndex]="999">
+
+      <div class="navbar-header">
+        <a class="navbar-brand navbar-brand-center" href="/index.html">
+          <!--<img class="navbar-brand-logo navbar-brand-logo-normal" src="../assets/images/logo.png"
+            title="XAM Web Application">
+          <img class="navbar-brand-logo navbar-brand-logo-special" src="../assets/images/logo-colored.png"
+            title="XAM Web Application">-->
+          <i class="icon fa-btc"></i>
+          <span class="navbar-brand-text hidden-xs-down"> XAM</span>
+        </a>
+      </div>
+
+  <div class="navbar-container container-fluid">
+
+    <div class="navbar-search-overlap collapse show bg-indigo-400" id="site-navbar-search" style="">
+      <form role="search">
+        <div class="form-group float-left col-md-2 px-0">
+          <div class="input-search">
+            <i class="input-search-icon md-book text-white" aria-hidden="true"></i>
+            <select class="form-control text-white border-0" name="portfolio" [(ngModel)]="api.portfolio">
+              <option *ngFor="let p of portfolioList" [ngValue]="p">{{p}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group float-left col-md-2 px-0">
+          <div class="input-search">
+            <i class="input-search-icon md-input-composite text-white" aria-hidden="true"></i>
+            <select class="form-control text-white border-0" name="model" [(ngModel)]="api.model">
+              <option [ngValue]="'hourly'">hourly</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group float-left col-md-2 px-0">
+          <div class="input-search">
+            <!--<i class="input-search-icon md-time text-white" aria-hidden="true"></i>-->
+            <p-calendar inputStyleClass="form-control border-0 text-white"
+                        [(ngModel)]="api.date"
+                        name="forDate"
+                        dataType="String"
+                        dateFormat="yy-mm-dd"
+                        showTime="true"
+                        hourFormat="24"
+                        showButtonBar="true"
+                        utc="true"
+                        (onSelect)="clearForDateMinutes($event)">
+            </p-calendar>
+            <!--<input type="datetime-local" class="form-control text-white border-0" name="date" placeholder="Model" [(ngModel)]="api.date">-->
+          </div>
+        </div>
+        <div class="form-group float-left col-md-2 px-0">
+          <div class="input-search">
+            <i class="input-search-icon md-time-restore text-white" aria-hidden="true"></i>
+            <select class="form-control text-white border-0" name="lookback" [(ngModel)]="api.lookback">
+              <option *ngFor="let d of durations" [ngValue]="d.code">{{d.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group float-left col-md-2 px-0">
+          <div class="input-search">
+            <p-calendar inputStyleClass="form-control border-0 text-white"
+                        [(ngModel)]="api.asOfDate"
+                        name="asOfDate"
+                        dataType="String"
+                        dateFormat="yy-mm-dd"
+                        showTime="true"
+                        hourFormat="24"
+                        showButtonBar="true"
+                        utc="true"
+                        (onSelect)="clearAsOfDateMinutes($event)"
+                        (onClearClick)="clearAsOfDate()">
+            </p-calendar>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+        <!-- Navbar Toolbar -->
+        <ul class="nav navbar-toolbar">
+          <li class="nav-item hidden-float">
+            <a class="nav-link icon md-search waves-effect waves-light waves-round" data-toggle="collapse" href="#" data-target="#site-navbar-search" role="button" aria-expanded="true">
+              <span class="sr-only">Toggle Search</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    <!-- Navbar Collapse -->
+    <!--<div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+      <ul class="nav navbar-toolbar">
+        <li class="nav-item">
+          <a class="nav-link icon" (click)="submenu='Data'" href="javascript:void(0)" role="button">
+            <i class="icon wb-graph-up"></i> Data
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link icon" (click)="submenu='Portfolio'" href="javascript:void(0)" role="button">
+            <i class="icon wb-book"></i> Portfolio
+          </a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-toolbar navbar-right navbar-toolbar-right">
+        <li class="nav-item">
+          <a class="nav-link">
+            <mat-form-field>
+              <mat-select placeholder="Portfolio" [(ngModel)]="api.portfolio">
+                <mat-option [value]="'MyPTF1'">MyPTF1</mat-option>
+                <mat-option [value]="'MyPTF2'">MyPTF2</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            <mat-form-field>
+              <mat-select placeholder="Model" [(ngModel)]="api.model">
+                <mat-option [value]="'hourly'">hourly</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            <mat-form-field>
+              <input matInput type="datetime-local" [(value)]="api.date">
+            </mat-form-field>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link">
+            <mat-form-field>
+              <mat-select placeholder="Model" [(ngModel)]="api.lookback">
+                <mat-option [value]="'P3M'">P3M</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </a>
+        </li>
+      </ul>
+    </div>-->
+  </div>
+</nav>

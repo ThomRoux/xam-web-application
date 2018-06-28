@@ -1,0 +1,86 @@
+<div class="panel-body">
+
+  <mat-card>
+    <mat-card-content>
+
+      <mat-tab-group>
+        <mat-tab label="Market">
+
+          <ngx-datatable
+            style="-webkit-box-shadow: none; box-shadow: none"
+            class="material"
+            [rows]="data"
+            [loadingIndicator]="loadingIndicator"
+            [columnMode]="'force'"
+            [headerHeight]="40"
+            [footerHeight]="'auto'"
+            [rowHeight]="28"
+            [limit]="15"
+            [sorts]="[{prop: 'market_cap_usd', dir: 'desc'}]"
+            [reorderable]="reorderable">
+            <ngx-datatable-column name="name" cellClass="indigo-500">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()"><small>Name</small></span>
+              </ng-template>
+              <ng-template let-value="value" ngx-datatable-cell-template><small>{{value}}</small></ng-template>
+            </ngx-datatable-column>
+            <!--<ngx-datatable-column name="symbol">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()">Symbol</span>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{value}}</ng-template>
+            </ngx-datatable-column>-->
+            <ngx-datatable-column prop="price_usd">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()"><small>Price ($)</small></span>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template><small>{{value | number:decimalDigits(value) }}</small></ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="market_cap_usd">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()"><small>Mkt Cap (M$)</small></span>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template><small>{{0.000001*value | number:'1.0-0' }}</small></ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="percent_change_1h" [cellClass]="PosNeg">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()"><small>&Delta; 1h</small></span>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template><small>{{0.01*value | percent:'1.1-1' }}</small></ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="percent_change_24h" [cellClass]="PosNeg">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()"><small>&Delta; 24h</small></span>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template><small>{{0.01*value | percent:'1.1-1' }}</small></ng-template>
+            </ngx-datatable-column>
+            <!--<ngx-datatable-column prop="last_updated">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()">Last Updated</span>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>{{value | date:'short' }}</ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column prop="chart" [minWidth]="70">
+              <ng-template let-column="column" let-sort="sortFn" ngx-datatable-header-template>
+                <span (click)="sort()"><small>Last 24h</small></span>
+              </ng-template>
+              <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <ngx-trend [data]="value"
+                        autoDraw="true"
+                        autoDrawDuration="500"
+                        autoDrawEasing="ease-in"
+                        stroke="blue" height="28"></ngx-trend>
+              </ng-template>
+            </ngx-datatable-column>-->
+          </ngx-datatable>
+
+        </mat-tab>
+      </mat-tab-group>
+
+
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

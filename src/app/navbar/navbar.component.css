@@ -1,0 +1,9 @@
+:host ::ng-deep .form-control:focus, .form-control:hover, .input-search:focus, .input-search:hover, .input-search:hover input {
+  /*color: black!important;*/
+  background-color: #3f51b5!important;
+}
+
+::ng-deep .ui-inputtext {
+  font-weight: 400!important;
+  font-family: Roboto, sans-serif
+}

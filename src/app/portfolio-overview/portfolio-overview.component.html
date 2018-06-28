@@ -1,0 +1,123 @@
+<div class="panel-body2">
+
+  <mat-card height="100%">
+    <mat-card-content>
+      <mat-tab-group disableRipple='true' dynamicHeight='false' headerPosition="left">
+        <mat-tab [label]="'Overview'">
+
+          <p-table [value]="portfolio?.positions" [responsive]="true" [loading]="loading" autoLayout="true" styleClass="table table-sm table-hover table-striped font-size-10">
+            <ng-template pTemplate="header">
+              <tr>
+                <th rowspan="2" [pSortableColumn]="'asset'">Asset<p-sortIcon [field]="'asset'"></p-sortIcon></th>
+                <th colspan="3" class="text-center">Analytics</th>
+                <th [attr.colspan]="portfolio?.scenarios.length" class="text-center">Optimized Scenarios</th>
+              </tr>
+              <tr>
+                  <th [pSortableColumn]="'mtm'" class="text-right">MtM<p-sortIcon [field]="'mtm'"></p-sortIcon></th>
+                  <th [pSortableColumn]="'quantity'" class="text-right">Quantity<p-sortIcon [field]="'quantity'"></p-sortIcon></th>
+                  <th [pSortableColumn]="'price'" class="text-right">Price<p-sortIcon [field]="'price'"></p-sortIcon></th>
+                  <th *ngFor="let sc of portfolio?.scenarios; let i=index" class="text-right">{{sc.target | percent:'1.0-3'}}</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-position>
+              <tr>
+                  <th class="indigo-500">{{position.asset}}</th>
+                  <td class="text-right">{{position.mtm | currency:'USD':'symbol':'1.0-0'}}</td>
+                  <td class="text-right">{{position.quantity | number:'1.0-2'}}</td>
+                  <td class="text-right">{{position.price | currency:'USD':'symbol':'1.0-3'}}</td>
+                  <td *ngFor="let sc of position.scenarios; let i=$index" class="text-right" [ngClass]="{'green-500': sc>position.quantity, 'red-500':sc<position.quantity}">{{sc | number:'1.0-2'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="table-primary font-weight-600 text-white">
+                <td>Expected Return</td>
+                <td class="text-center" colspan="3">{{portfolio?.expectedReturn | percent:'1.0-4'}}</td>
+                <td *ngFor="let sc of portfolio?.scenarios; let i=$index" class="text-right">{{sc.expectedReturn | percent:'1.0-4'}}</td>
+              </tr>
+              <tr class="bg-grey-500 font-weight-600 text-white">
+                <td>Standard Deviation</td>
+                <td class="text-center" colspan="3">{{portfolio?.stdDev | percent:'1.0-4'}}</td>
+                <td *ngFor="let sc of portfolio?.scenarios; let i=$index" class="text-right">{{sc.stdDev | percent:'1.0-4'}}</td>
+              </tr>
+              <tr class="table-primary font-weight-600 text-white">
+                <td>TOTAL</td>
+                <td class="text-center" colspan="3">{{portfolio?.mtm | currency:'USD':'symbol':'1.0-0'}}</td>
+                <td *ngFor="let sc of portfolio?.scenarios; let i=index" class="text-right" (mouseout)="mouseOvered[i]=false" (mouseover)="mouseOvered[i]=true">
+                  <a href="javascript:void(0)"
+                      (click)="createTrades(sc)"
+                      class="blue-100" [class.grey-700]="mouseOvered[i]"><i class="icon md-thumb-up" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                  <td [attr.colspan]="4">
+                      No records found for {{ptf}} at date {{date}}
+                  </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+        </mat-tab>
+
+        <mat-tab [label]="'Efficient Frontier'" *ngIf="portfolio?.efficientFrontier.length>0">
+          <div class="text-center">
+            <ngx-charts-line-chart
+              [view]="[1400,600]"
+              [results]="portfolio?.efficientFrontier"
+              [xAxis]="'true'"
+              [yAxis]="'false'"
+              [legend]="'false'"
+              [showXAxisLabel]="'true'"
+              [showYAxisLabel]="'true'"
+              [xAxisLabel]="'Standard Deviation'"
+              [yAxisLabel]="'Expected Return'"
+              [autoScale]="'true'"
+              roundDomains="true"
+              [curve]="curve"
+              (select)="onSelect($event)">
+            </ngx-charts-line-chart>
+          </div>
+
+        </mat-tab>
+
+        <mat-tab label="Exposures">
+          <p-table [value]="portfolio?.positions" [responsive]="true" [loading]="loading" autoLayout="true" styleClass="table table-sm table-hover table-striped font-size-10">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Asset</th>
+                <th *ngFor="let factor of portfolio?.factors.names" class="text-right" [pSortableColumn]="'exposures.'+factor">{{factor}}<p-sortIcon [field]="'exposures.'+factor"></p-sortIcon></th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-position>
+              <tr>
+                <th class="indigo-500">{{position.asset}}</th>
+                <td *ngFor="let factor of portfolio?.factors.names" class="text-right">{{position.exposures[factor] | number:'1.0-3'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <tr class="table-primary font-weight-600 text-white">
+                <td>TOTAL</td>
+                <td *ngFor="let factor of portfolio?.factors.names" class="text-right">{{portfolio?.exposures[factor] | number:'1.0-3'}}</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage" let-columns>
+              <tr>
+                  <td [attr.colspan]="portfolio?.factors.names.length">
+                      No records found for {{ptf}} at date {{date}}
+                  </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </mat-tab>
+
+        <mat-tab label="Factors">
+          <app-model-overview [factorData]="portfolio?.factors"></app-model-overview>
+        </mat-tab>
+
+      </mat-tab-group>
+
+    </mat-card-content>
+  </mat-card>
+
+</div>

@@ -1,0 +1,28 @@
+.mat-row, .mat-header-row {
+  min-height: 30px
+}
+
+.mat-cell {
+  overflow: hidden;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+  display: block !important;
+}
+
+.mat-column-percent_change_1h, .mat-column-percent_change_24h, .mat-column-symbol {
+  flex: 0 0 75px !important;
+  white-space: unset !important;
+}
+
+::ng-deep .ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  padding: .1em 1.2em !important;
+}
+
+::ng-deep .mat-card-title {
+  margin: 0 !important;
+}
+
+::ng-deep .mat-card {
+  padding: 0px 10px !important;
+}

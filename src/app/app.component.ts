@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { XamApiService } from './xam-api.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  constructor(public api: XamApiService) { }
+
 }

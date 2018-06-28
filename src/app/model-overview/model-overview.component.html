@@ -1,0 +1,45 @@
+<div class="center font-size-10">
+
+  <div>
+
+    <p-table [value]="covariance" [responsive]="true" [loading]="loading" autoLayout="true" styleClass="table table-sm table-hover table-striped">
+      <ng-template pTemplate="header">
+        <tr>
+          <th [pSortableColumn]="'factor'">Factor<p-sortIcon [field]="'factor'"></p-sortIcon></th>
+          <td *ngFor="let factor of factorData?.names">{{factor}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-row>
+        <tr>
+            <th class="indigo-500">{{row.factor}}</th>
+            <td *ngFor="let factor of factorData?.names" [class]="CorrelationColor(row[factor])">{{row[factor] | number:'1.0-3'}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+            <td [attr.colspan]="4">
+                No data found for this setup
+            </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
+  </div>
+
+  <div style="width: 100%; height:280px">
+    <ngx-charts-line-chart style="padding: 5px"
+      [results]="data" 
+      [gradient]="gradient"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="false"
+      [showYAxisLabel]="false"
+      [xAxisLabel]="'Datetime'"
+      [yAxisLabel]="'Factor Level'"
+      [autoScale]="'true'"
+      (select)="onSelect($event)">
+    </ngx-charts-line-chart>
+  </div>
+
+</div>
